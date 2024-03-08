@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ChatInfo from "./ChatInfo";
-
+interface ChatResponse {
+  name: string;
+}
 const Header = () => {
+  const [data, setData] = useState<ChatResponse>({
+    name: "",
+  });
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://qa.corider.in/assignment/chat?page=0"
+        );
+        const responseData = await response.json();
+        setData(responseData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  console.log(data);
+
   return (
     <div
       style={{
@@ -16,7 +38,7 @@ const Header = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: "32px 16px 0 16px",
+          padding: "16px 16px 0 16px",
         }}
       >
         <div style={{ display: "flex", gap: "10px" }}>
@@ -31,9 +53,10 @@ const Header = () => {
               fontSize: "24px",
               fontWeight: "700",
               lineHeight: "30px",
+              fontFamily: "Mulish",
             }}
           >
-            Trip 1
+            {data.name}
           </p>
         </div>
         <div>

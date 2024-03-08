@@ -62,13 +62,17 @@ const Chat = () => {
       });
     }
   }, [data]);
-  console.log(data.chats);
 
   return (
     <>
       <div
         ref={chatContainerRef}
-        style={{ padding: "22vh 0", overflowY: "auto", maxHeight: "60vh" }}
+        style={{
+          padding: "22vh 0",
+          overflowY: "auto",
+          maxHeight: "60vh",
+          backgroundColor: "#E5E5E0",
+        }}
       >
         {Object.entries(
           data.chats
@@ -76,9 +80,15 @@ const Chat = () => {
               (a, b) => new Date(b.time).getTime() - new Date(a.time).getTime()
             )
             .reduce<{ [date: string]: Chatchat[] }>((acc, chat) => {
-              const chatDate = new Date(chat.time).toLocaleDateString();
-              acc[chatDate] = acc[chatDate] || [];
-              acc[chatDate].push(chat);
+              const chatDate = new Date(chat.time);
+              const date = chatDate.getDate();
+              const month = chatDate.toLocaleString("default", {
+                month: "short",
+              });
+              const year = chatDate.getFullYear();
+              const monthYear = `${date} ${month}, ${year}`;
+              acc[monthYear] = acc[monthYear] || [];
+              acc[monthYear].push(chat);
               return acc;
             }, {})
         ).map(([date, chats]) => (
@@ -98,7 +108,17 @@ const Chat = () => {
                   background: "#B7B7B7",
                 }}
               />
-              {date}
+              <p
+                style={{
+                  fontFamily: "Mulish",
+                  fontWeight: "400",
+                  fontSize: "14px",
+                  lineHeight: "18px",
+                  color: "#B7B7B7",
+                }}
+              >
+                {date}
+              </p>
               <div
                 style={{
                   width: "116px",
@@ -108,81 +128,85 @@ const Chat = () => {
                 }}
               />
             </div>
-            {chats.reverse().map((chat: Chatchat) => (
-              <div key={chat.id}>
-                {chat.sender.self === false ? (
-                  <div style={{ padding: "16px" }}>
-                    <div style={{ display: "flex", gap: "8px" }}>
-                      <div style={{ position: "relative" }}>
-                        <img
-                          style={{
-                            width: "24px",
-                            height: "24px",
-                            borderRadius: "50%",
-                          }}
-                          src={chat.sender.image}
-                          alt="Chat Profile"
-                        />
-                        {chat.sender.is_kyc_verified && (
+            {chats
+              .slice()
+              .reverse()
+              .map((chat: Chatchat) => (
+                <div key={chat.id}>
+                  {chat.sender.self === false ? (
+                    <div style={{ padding: "16px" }}>
+                      <div style={{ display: "flex", gap: "8px" }}>
+                        <div style={{ position: "relative" }}>
                           <img
                             style={{
-                              position: "absolute",
-                              width: "10px",
-                              top: "16.36px",
-                              left: " 16.36px ",
+                              width: "24px",
+                              height: "24px",
+                              borderRadius: "50%",
                             }}
-                            src="./assets/icons/check-verified-02.svg"
-                            alt=""
+                            src={chat.sender.image}
+                            alt="Chat Profile"
                           />
-                        )}
-                      </div>
+                          {chat.sender.is_kyc_verified && (
+                            <img
+                              style={{
+                                position: "absolute",
+                                width: "10px",
+                                top: "16.36px",
+                                left: " 16.36px ",
+                              }}
+                              src="./assets/icons/check-verified-02.svg"
+                              alt=""
+                            />
+                          )}
+                        </div>
 
-                      <div
-                        style={{
-                          background: "#FFFFFF",
-                          padding: "8px",
-                          borderRadius: "0px 12px 12px 12px",
-                          boxShadow: "0px 4px 8px 0px #00000014",
-                          fontSize: "14px",
-                          lineHeight: "18px",
-                          fontWeight: "400",
-                          color: "#606060",
-                          width: "287px",
-                        }}
-                      >
-                        {chat.message}
+                        <div
+                          style={{
+                            background: "#FFFFFF",
+                            padding: "8px",
+                            borderRadius: "0px 12px 12px 12px",
+                            boxShadow: "0px 4px 8px 0px #00000014",
+                            fontSize: "14px",
+                            lineHeight: "18px",
+                            fontWeight: "400",
+                            color: "#606060",
+                            width: "287px",
+                            fontFamily: "Mulish",
+                          }}
+                        >
+                          {chat.message}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ) : (
-                  <div
-                    style={{
-                      padding: "16px 16px 0 16px",
-                      width: "287px",
-                      marginLeft: "40px",
-                    }}
-                  >
-                    <div style={{ display: "flex", gap: "8px" }}>
-                      <div
-                        style={{
-                          background: "#1C63D5",
-                          padding: "8px",
-                          borderRadius: "12px 12px 0px 12px",
-                          boxShadow: "0px 4px 8px 0px #00000014",
-                          fontSize: "14px",
-                          lineHeight: "18px",
-                          fontWeight: "400",
-                          color: "#fff",
-                          width: "287px",
-                        }}
-                      >
-                        {chat.message}
+                  ) : (
+                    <div
+                      style={{
+                        padding: "16px 16px 0 16px",
+                        width: "287px",
+                        marginLeft: "40px",
+                      }}
+                    >
+                      <div style={{ display: "flex", gap: "8px" }}>
+                        <div
+                          style={{
+                            background: "#1C63D5",
+                            padding: "8px",
+                            borderRadius: "12px 12px 0px 12px",
+                            boxShadow: "0px 4px 8px 0px #00000014",
+                            fontSize: "14px",
+                            lineHeight: "18px",
+                            fontWeight: "400",
+                            color: "#fff",
+                            width: "287px",
+                          }}
+                        >
+                          {chat.message}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
-              </div>
-            ))}
+                  )}
+                </div>
+              ))}
           </div>
         ))}
       </div>

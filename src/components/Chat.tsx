@@ -70,7 +70,7 @@ const Chat = () => {
         style={{
           padding: "22vh 0",
           overflowY: "auto",
-          maxHeight: "60vh",
+          maxHeight: "62vh",
           backgroundColor: "#E5E5E0",
         }}
       >
@@ -162,6 +162,7 @@ const Chat = () => {
 
                         <div
                           style={{
+                            fontFamily: "Mulish",
                             background: "#FFFFFF",
                             padding: "8px",
                             borderRadius: "0px 12px 12px 12px",
@@ -171,7 +172,6 @@ const Chat = () => {
                             fontWeight: "400",
                             color: "#606060",
                             width: "287px",
-                            fontFamily: "Mulish",
                           }}
                         >
                           {chat.message}
@@ -189,6 +189,7 @@ const Chat = () => {
                       <div style={{ display: "flex", gap: "8px" }}>
                         <div
                           style={{
+                            fontFamily: "Mulish",
                             background: "#1C63D5",
                             padding: "8px",
                             borderRadius: "12px 12px 0px 12px",

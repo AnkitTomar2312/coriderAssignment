@@ -22,7 +22,6 @@ const Header = () => {
 
     fetchData();
   }, []);
-  console.log(data);
 
   return (
     <div

@@ -10,6 +10,7 @@ const Footer = () => {
         width: "100%",
         zIndex: "1000",
         backgroundColor: "#E5E5E0",
+        height: "114px",
       }}
     >
       <InBox />

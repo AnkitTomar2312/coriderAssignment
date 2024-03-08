@@ -24,6 +24,7 @@ const ChatInfo = () => {
 
     fetchData();
   }, []);
+
   return (
     <div
       style={{

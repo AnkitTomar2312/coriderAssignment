@@ -87,6 +87,7 @@ const Chat = () => {
   };
   return (
     <>
+      {/* Header */}
       <div
         style={{
           position: "fixed",

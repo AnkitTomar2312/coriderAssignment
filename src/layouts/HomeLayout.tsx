@@ -1,19 +1,10 @@
-import React, { ReactNode } from "react";
-import Header from "../components/Header";
-import ChatInfo from "../components/ChatInfo";
-import Chat from "../components/Chat";
-import Footer from "../components/Footer";
-
-interface Props {
-  children: ReactNode;
-}
-
-const HomeLayout: React.FC<Props> = ({ children }) => {
+import React from "react";
+const HomeLayout = () => {
   return (
     <div>
-      <Header />
-      {children}
-      <Footer />
+      {/* Header */}
+
+      {/* header info */}
     </div>
   );
 };
